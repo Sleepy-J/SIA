@@ -1,0 +1,101 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background: radial-gradient(circle, #1a1a2e, #16213e, #0f3460);
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.form-container {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.form-container h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+
+.form-container form label {
+    font-size: 0.9rem;
+    color: #a5adce;
+    display: block;
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+.form-container form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    font-size: 0.9rem;
+}
+
+.btn-submit{
+    background: linear-gradient(135deg, #4e9af1, #00d4ff);
+    color: #ffffff;
+    border: none;
+    padding: 12px  50px;
+    width: 400px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.9rem;
+    transition: all 0.3s ease-in-out;
+
+}
+
+/* .form-container form input[type="submit"] {
+    background: linear-gradient(135deg, #4e9af1, #00d4ff);
+    color: #ffffff;
+    border: none;
+    padding: 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.9rem;
+    transition: all 0.3s ease-in-out;
+} */
+
+.btn-submit:hover {
+    background: linear-gradient(135deg, #00d4ff, #4e9af1);
+}
+
+.form-container a {
+    color: #4e9af1;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.form-container a:hover {
+    color: #00d4ff;
+}
+
+.toggle-link {
+    margin-top: 15px;
+}
+
+@media (max-width: 768px) {
+    .form-container {
+        padding: 30px;
+    }
+
+    .form-container h2 {
+        font-size: 1.5rem;
+    }
+}
