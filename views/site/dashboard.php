@@ -138,49 +138,61 @@ $this->title = 'Dashboard';
     </div>
 
     <script>
-        function showPanel(panelId) {
-            document.querySelectorAll('.panel').forEach(panel => {
-                panel.classList.remove('active');
-            });
-            document.getElementById(panelId).classList.add('active');
-        }
+    function showPanel(panelId) {
+        // Hide all panels
+        document.querySelectorAll('.panel').forEach(panel => {
+            panel.classList.remove('active');
+        });
+        // Show the selected panel
+        document.getElementById(panelId).classList.add('active');
 
-        document.addEventListener("DOMContentLoaded", function () {
-            document.querySelectorAll('.delete-btn').forEach(button => {
-                button.addEventListener('click', function () {
-                    const transactionId = this.getAttribute('data-id');
+        // Store the current active panel in localStorage
+        localStorage.setItem('activePanel', panelId);
+    }
 
-                    if (!transactionId || isNaN(transactionId)) {
-                        alert("Invalid transaction identifier.");
-                        return;
-                    }
+    // Restore the active panel when the page loads
+    document.addEventListener("DOMContentLoaded", function () {
+        const activePanel = localStorage.getItem('activePanel') || 'transaction-entry';
+        showPanel(activePanel);
 
-                    if (confirm("Are you sure you want to delete this transaction?")) {
-                        fetch('<?= Yii::$app->urlManager->createUrl(['site/delete-transaction']) ?>', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-Token': '<?= Yii::$app->request->csrfToken ?>'
-                            },
-                            body: JSON.stringify({ transactionIndex: parseInt(transactionId) })
+        // Re-attach delete button functionality
+        document.querySelectorAll('.delete-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const transactionId = this.getAttribute('data-id');
+
+                if (!transactionId || isNaN(transactionId)) {
+                    alert("Invalid transaction identifier.");
+                    return;
+                }
+
+                if (confirm("Are you sure you want to delete this transaction?")) {
+                    fetch('<?= Yii::$app->urlManager->createUrl(["site/delete-transaction"]) ?>', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-Token': '<?= Yii::$app->request->csrfToken ?>'
+                        },
+                        body: JSON.stringify({ transactionIndex: parseInt(transactionId) })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert(data.message);
+                                localStorage.setItem('activePanel', 'summary-history'); // Ensure it stays on history panel
+                                location.reload();
+                            } else {
+                                alert(data.message);
+                            }
                         })
-                            .then(response => response.json())
-                            .then(data => {
-                                if (data.success) {
-                                    alert(data.message);
-                                    location.reload(); // Refresh the page to update the transaction list
-                                } else {
-                                    alert(data.message);
-                                }
-                            })
-                            .catch(error => {
-                                console.error('Error:', error);
-                                alert('An error occurred while deleting the transaction.');
-                            });
-                    }
-                });
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('An error occurred while deleting the transaction.');
+                        });
+                }
             });
         });
-    </script>
+    });
+</script>
+
 </body>
 </html>

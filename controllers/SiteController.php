@@ -134,36 +134,38 @@ class SiteController extends Controller
     }
 
     public function actionDeleteTransaction()
-    {
-        Yii::$app->response->format = Response::FORMAT_JSON;
+{
+    Yii::$app->response->format = Response::FORMAT_JSON;
 
-        if (Yii::$app->request->isPost) {
-            $transactionIndex = Yii::$app->request->post('transactionIndex');
-            
-            if (!is_numeric($transactionIndex) || intval($transactionIndex) < 0) {
-                return ['success' => false, 'message' => 'Invalid transaction index.'];
-            }
+    $email = Yii::$app->session->get('email');
+    $filename = Yii::getAlias('@runtime/transactions_' . preg_replace('/[^a-zA-Z0-9_]/', '_', strtolower($email)) . '.txt');
 
-            $transactionIndex = intval($transactionIndex);
-            $email = Yii::$app->session->get('email');
-            $filename = Yii::getAlias('@runtime/transactions_' . preg_replace('/[^a-zA-Z0-9_]/', '_', strtolower($email)) . '.txt');
+    if (Yii::$app->request->isPost) {
+        $data = json_decode(Yii::$app->request->rawBody, true);
+        $transactionIndex = $data['transactionIndex'] ?? null;
 
-            if (!file_exists($filename)) {
-                file_put_contents($filename, ''); // Create the file if it doesn't exist
-            }
+        if ($transactionIndex === null || !is_numeric($transactionIndex)) {
+            return ['success' => false, 'message' => 'Invalid transaction index.'];
+        }
 
+        if (file_exists($filename)) {
             $transactions = file($filename, FILE_IGNORE_NEW_LINES);
 
             if (isset($transactions[$transactionIndex])) {
-                unset($transactions[$transactionIndex]);
+                unset($transactions[$transactionIndex]); // Remove the transaction
+                $transactions = array_values($transactions); // Re-index array
                 file_put_contents($filename, implode(PHP_EOL, $transactions) . PHP_EOL);
 
                 return ['success' => true, 'message' => 'Transaction deleted successfully.'];
             } else {
                 return ['success' => false, 'message' => 'Transaction not found.'];
             }
+        } else {
+            return ['success' => false, 'message' => 'Transaction file does not exist.'];
         }
-
-        return ['success' => false, 'message' => 'Invalid request method.'];
     }
+
+    return ['success' => false, 'message' => 'Invalid request.'];
+}
+
 }
