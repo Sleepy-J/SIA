@@ -23,19 +23,25 @@ h1, h2, h3 {
     color: #ffffff;
 }
 
+.table{
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    width: 400px; /* Set a fixed width for the container */
+    height: 50px; /* Set a fixed height for the container */
+    border-radius: 15px;
+}
+
 /* Container Styles */
 .container {
     display: flex;
     flex-direction: row;
-    width: 100%;
-    max-width: 1400px;
-    height: 85%;
-    max-height: 100vh;
+    width: 1200px; /* Set a fixed width for the container */
+    height: 700px; /* Set a fixed height for the container */
     border-radius: 15px;
-    overflow: hidden;
+    overflow: hidden; /* Hide overflow if content exceeds the container */
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
     background: rgba(255, 255, 255, 0.05);
-    /* padding: 30px; */
     gap: 30px;
 }
 
@@ -52,6 +58,12 @@ h1, h2, h3 {
     box-shadow: 2px 0 15px rgba(0, 0, 0, 0.2);
     flex-shrink: 0;
     margin-right: 30px;
+}
+
+.right-container{
+    max-height: 400px; /* Set your desired height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: auto;
 }
 
 .navbar ul {
@@ -105,7 +117,7 @@ h1, h2, h3 {
     /* border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); */
     text-align: center;
-    min-height: 400px; 
+    min-height: 300px; 
     height: 100%;
 }
 
@@ -180,14 +192,14 @@ form input, form textarea, form select {
     border-radius: 8px;
     background: rgba(255, 255, 255, 0.1);
     border: none;
-    color: #686868;
+    color: #ffffff;
     font-size: 1.1rem;
     transition: all 0.3s ease;
 }
 
 form input:focus, form textarea:focus, form select:focus {
     outline: none;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(218, 213, 213, 0.2);
 }
 
 form textarea {
@@ -221,6 +233,47 @@ table {
     margin-top: 20px;
 }
 
+form select option{
+    color: black;
+}
+
+.left-container {
+    display: flex;
+    flex-direction: column; /* Stack title and cards vertically */
+    align-items: flex-start; /* Align items to the start */
+}
+
+.left-container h2{
+    text-align: center;
+}
+
+.summary-cards {
+    display: flex; /* Display cards in a row */
+    justify-content: space-between; /* Space out the cards */
+    width: 100%; /* Make sure it takes full width */
+    flex-wrap: nowrap; /* Prevent wrapping to keep them in a single row */
+}
+
+.card {
+    border: 1px solid #ccc; /* Add border to cards */
+    border-radius: 5px; /* Rounded corners */
+    padding: 20px; /* Padding inside cards */
+    margin: 10px; /* Margin between cards */
+    flex: 1; /* Allow cards to grow equally */
+    min-width: 150px; /* Minimum width for cards */
+    max-width: 200px; /* Maximum width for cards */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
+    text-align: center; /* Center text inside cards */
+}
+
+.card p{
+    margin-top: 10px;
+}
+
+.card h3 {
+    margin: 0; /* Remove default margin */
+}
+
 table th, table td {
     padding: 20px;
     text-align: left;
@@ -245,6 +298,12 @@ table td {
     background-color:#bc494b;
     padding: 10px 20px;
     border-radius: 15px;
+    cursor: pointer;
+}
+
+.delete-btn:hover{
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
 }
 
 /* Logout Button */

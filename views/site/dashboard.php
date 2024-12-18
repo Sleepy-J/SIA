@@ -69,32 +69,34 @@ $this->title = 'Dashboard';
                     <!-- Financial Summary -->
                     <div class="left-container">
                         <h2>Financial Summary</h2>
-                        <div class="card income">
-                            <h3>Total<br>Income</h3>
-                            <p>
-                                <?= Html::encode(array_sum(array_map(function ($t) {
-                                    return $t[1] === 'income' ? $t[2] : 0;
-                                }, $transactions))) ?>
-                            </p>
-                        </div>
-                        <div class="card expenses">
-                            <h3>Total Expenses</h3>
-                            <p>
-                                <?= Html::encode(array_sum(array_map(function ($t) {
-                                    return $t[1] === 'expense' ? $t[2] : 0;
-                                }, $transactions))) ?>
-                            </p>
-                        </div>
-                        <div class="card balance">
-                            <h3>Total Balance</h3>
-                            <p>
-                                <?= Html::encode(array_sum(array_map(function ($t) {
-                                    return $t[1] === 'income' ? $t[2] : 0;
-                                }, $transactions)) - 
-                                    array_sum(array_map(function ($t) {
+                        <div class="summary-cards">
+                            <div class="card income">
+                                <h3>Total Income</h3>
+                                <p>
+                                    <?= Html::encode(array_sum(array_map(function ($t) {
+                                        return $t[1] === 'income' ? $t[2] : 0;
+                                    }, $transactions))) ?>
+                                </p>
+                            </div>
+                            <div class="card expenses">
+                                <h3>Total Expenses</h3>
+                                <p>
+                                    <?= Html::encode(array_sum(array_map(function ($t) {
                                         return $t[1] === 'expense' ? $t[2] : 0;
                                     }, $transactions))) ?>
-                            </p>
+                                </p>
+                            </div>
+                            <div class="card balance">
+                                <h3>Total Balance</h3>
+                                <p>
+                                    <?= Html::encode(array_sum(array_map(function ($t) {
+                                        return $t[1] === 'income' ? $t[2] : 0;
+                                    }, $transactions)) - 
+                                        array_sum(array_map(function ($t) {
+                                            return $t[1] === 'expense' ? $t[2] : 0;
+                                        }, $transactions))) ?>
+                                </p>
+                            </div>
                         </div>
                     </div>
 
