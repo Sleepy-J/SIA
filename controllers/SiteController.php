@@ -95,7 +95,6 @@ class SiteController extends Controller
         return $this->render('dashboard', ['transactions' => $transactions]);
     }
 
-
     public function actionAddTransaction()
     {
         if (Yii::$app->request->isPost) {
@@ -120,15 +119,13 @@ class SiteController extends Controller
                 fwrite($file, $transactionString);
                 fclose($file);
 
-                // Immediately add the transaction to the view
                 Yii::$app->session->setFlash('success', 'Transaction added successfully!');
-                return $this->redirect(['site/dashboard']); 
+                return $this->redirect(['site/dashboard']);
             } else {
                 Yii::$app->session->setFlash('error', 'Failed to save transaction!');
             }
         }
     }
-
 
     public function actionLogout()
     {
